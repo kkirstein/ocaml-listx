@@ -23,17 +23,10 @@ let%test _ = range 4 2 = []
 (**
  * splits the list into a parts at the given position
  *)
-let split n l =
-  let rec loop a b pos =
-    if pos < n then loop ((List.hd b) :: a) (List.tl b) (pos + 1)
+let split pos l =
+  let rec loop a b cur =
+    if cur < pos then loop ((List.hd b) :: a) (List.tl b) (cur + 1)
     else (List.rev a, b)
-  in
-  loop [] l 0
-
-let split_list n l =
-  let rec loop a b pos =
-    if pos < n then loop ((List.hd b) :: a) (List.tl b) (pos + 1)
-    else [List.rev a; b]
   in
   loop [] l 0
 
@@ -44,10 +37,23 @@ let%test_module _ = (module struct
                       let%test _ = split 1 ll = ([1], [2; 3; 4; 5; 6; 7; 8])
                       let%test _ = split 5 ll = ([1; 2; 3; 4; 5], [6; 7; 8])
                       let%test _ = split 8 ll = (ll, [])
-                      let%test _ = split_list 0 ll = [[]; ll]
-                      let%test _ = split_list 1 ll = [[1]; [2; 3; 4; 5; 6; 7; 8]]
-                      let%test _ = split_list 5 ll = [[1; 2; 3; 4; 5]; [6; 7; 8]]
-                      let%test _ = split_list 8 ll = [ll; []]
+                    end)
+
+(** partition list *)
+let part n l =
+  let rec loop tail =
+    match tail with
+    | []  -> []
+    | ll  -> let (f, t) = split n ll in f :: (loop t) in
+  loop l
+
+let%test_module _ = (module struct
+                      let ll = [1; 2; 3; 4; 5; 6; 7; 8]
+
+                      (* let%test _ = part 0 ll = [[]; ll] *)
+                      let%test _ = part 1 ll = [[1]; [2]; [3]; [4]; [5]; [6]; [7]; [8]]
+                      let%test _ = part 4 ll = [[1; 2; 3; 4]; [5; 6; 7; 8]]
+                      (* let%test _ = part 8 ll = [ll; []] *)
                     end)
 
 

@@ -7,18 +7,17 @@
  * list genertaion and processing
  *)
 
-(**
- * generates a list of int values with given range
- * (start inclusive, stop exlcusive)
- *)
 val range : int -> int -> int list
+(** [range start stop] generattes a list of int values
+    with given range ([start] included, [stop] excluded) *)
 
 
-(**
- * splits the list into two parts at the given position
- *)
 val split : int ->  'a list -> ('a list) * ('a list)
-val split_list : int ->  'a list -> 'a list list
+(** [split pos l] splits the given list [l] at [pos] *)
+
+
+val part : int ->  'a list -> 'a list list
+(** [part n l] partitions the given list [l] into [n] parts *)
 
 
 (**
