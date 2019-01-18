@@ -2,13 +2,11 @@ opam-version: "2.0"
 name: "listx"
 maintainer: "kay-uwe@kirsteinhome.ch"
 authors: ["Kay-Uwe Kirstein"]
-dev-repo: "https://github.com/kkirstein/ocaml-playground.git"
+synopsis: "A module with utility functions for list generation and processing"
+dev-repo: "git+https://github.com/kkirstein/ocaml-listx.git"
 license: "MIT"
 build: [
 	["dune" "build" "-p" name "-j" jobs]
-]
-build-test: [
-	["dune" "runtest" "-p" name "-j" jobs]
 ]
 depends: [
 	"dune" {build}
