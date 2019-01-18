@@ -15,7 +15,7 @@ val range : int -> int -> int list
 
 
 (**
- * splits the list into a parts at the given position
+ * splits the list into two parts at the given position
  *)
 val split_list : int ->  'a list -> ('a list) * ('a list)
 
