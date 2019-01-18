@@ -23,20 +23,31 @@ let%test _ = range 4 2 = []
 (**
  * splits the list into a parts at the given position
  *)
-let split_list n l =
+let split n l =
   let rec loop a b pos =
     if pos < n then loop ((List.hd b) :: a) (List.tl b) (pos + 1)
     else (List.rev a, b)
   in
   loop [] l 0
 
+let split_list n l =
+  let rec loop a b pos =
+    if pos < n then loop ((List.hd b) :: a) (List.tl b) (pos + 1)
+    else [List.rev a; b]
+  in
+  loop [] l 0
+
 let%test_module _ = (module struct
                       let ll = [1; 2; 3; 4; 5; 6; 7; 8]
 
-                      let%test _ = split_list 0 ll = ([], ll)
-                      let%test _ = split_list 1 ll = ([1], [2; 3; 4; 5; 6; 7; 8])
-                      let%test _ = split_list 5 ll = ([1; 2; 3; 4; 5], [6; 7; 8])
-                      let%test _ = split_list 8 ll = (ll, [])
+                      let%test _ = split 0 ll = ([], ll)
+                      let%test _ = split 1 ll = ([1], [2; 3; 4; 5; 6; 7; 8])
+                      let%test _ = split 5 ll = ([1; 2; 3; 4; 5], [6; 7; 8])
+                      let%test _ = split 8 ll = (ll, [])
+                      let%test _ = split_list 0 ll = [[]; ll]
+                      let%test _ = split_list 1 ll = [[1]; [2; 3; 4; 5; 6; 7; 8]]
+                      let%test _ = split_list 5 ll = [[1; 2; 3; 4; 5]; [6; 7; 8]]
+                      let%test _ = split_list 8 ll = [ll; []]
                     end)
 
 
