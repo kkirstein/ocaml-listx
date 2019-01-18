@@ -4,11 +4,13 @@ maintainer: "kay-uwe@kirsteinhome.ch"
 authors: ["Kay-Uwe Kirstein"]
 synopsis: "A module with utility functions for list generation and processing"
 dev-repo: "git+https://github.com/kkirstein/ocaml-listx.git"
+homepage: "https://github.com/kkirstein/ocaml-listx.git"
+bug-reports: ""
 license: "MIT"
 build: [
 	["dune" "build" "-p" name "-j" jobs]
 ]
 depends: [
 	"dune" {build}
-	"ppx_inline_test" {test}
+	"ppx_inline_test" {build}
 ]
