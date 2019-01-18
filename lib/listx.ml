@@ -30,6 +30,14 @@ let split pos l =
   in
   loop [] l 0
 
+let take n l =
+  let rec loop res l' =
+    match l' with
+    | []      -> (res, [])
+    | h :: t  -> if List.length res < n then (loop (List.append res [h]) t)
+      else (res, l') in
+  loop [] l
+
 let%test_module _ = (module struct
                       let ll = [1; 2; 3; 4; 5; 6; 7; 8]
 
@@ -37,6 +45,10 @@ let%test_module _ = (module struct
                       let%test _ = split 1 ll = ([1], [2; 3; 4; 5; 6; 7; 8])
                       let%test _ = split 5 ll = ([1; 2; 3; 4; 5], [6; 7; 8])
                       let%test _ = split 8 ll = (ll, [])
+                      let%test _ = take 0 ll = ([], ll)
+                      let%test _ = take 1 ll = ([1], [2; 3; 4; 5; 6; 7; 8])
+                      let%test _ = take 5 ll = ([1; 2; 3; 4; 5], [6; 7; 8])
+                      let%test _ = take 8 ll = (ll, [])
                     end)
 
 (** partition list *)
