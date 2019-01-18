@@ -33,7 +33,9 @@ dist: build
 	rm -rf dist
 	mkdir -p dist
 	$(foreach f,$(dist_sources),cp _build/default/$(f) ./dist/$(basename $(notdir $(f)))$(EXT_EXE);)
+ifeq ($(UNAME_O), Cygwin)
 	ldd $(dist_target) \
-	 | awk '$$2  == "=>" && $$3 !~ /WINDOWS/ && $$3 ~/^\// && !seen[$$3]++ { print "cp", $$3, "./dist" }' | sh
+		| awk '$$2  == "=>" && $$3 !~ /WINDOWS/ && $$3 ~/^\// && !seen[$$3]++ { print "cp", $$3, "./dist" }' | sh
+endif
 
 .PHONY: 	all clean build test
