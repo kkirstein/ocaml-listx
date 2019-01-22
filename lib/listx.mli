@@ -20,23 +20,20 @@ val part : int ->  'a list -> 'a list list
 (** [part n l] partitions the given list [l] into [n] parts *)
 
 
-(**
- * extracts a sublist of the given indices (inclusive).
- * Returns an empty list, if out of bounds.
- *)
 val sub_list : int -> int -> 'a list -> 'a list
+(** [sub_list start stop l] extracts a sublist of given
+    [start] and [stop] indices (inclusive). If indices are
+    out of bounds an empty list is returned. *)
 
 
-(**
- * takes out the first element equal to a
- *)
 val take_out_first : 'a -> 'a list -> 'a list
+(** [take_out_first elem l] removes the first element
+    equal to [elem] from the given list [l]. *)
 
 
-(**
- * random sampling of list entries
- *)
 val sample_list : ?n:int -> 'a list -> 'a list
-
+(** [sample_list ?n l] randomly samples [n] elements
+    from given list [l]. [n] defaults to all elements
+    if not given. *)
 
 
