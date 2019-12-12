@@ -1,6 +1,6 @@
 opam-version: "2.0"
 name: "listx"
-version: "0.0.1"
+version: "0.1.0"
 maintainer: "kay-uwe@kirsteinhome.ch"
 authors: ["Kay-Uwe Kirstein"]
 synopsis: "A module with utility functions for list generation and processing"
@@ -9,9 +9,13 @@ homepage: "https://github.com/kkirstein/ocaml-listx.git"
 bug-reports: "https://github.com/kkirstein/ocaml-listx/issues"
 license: "MIT"
 build: [
+	["dune" "subst"] {pinned}
 	["dune" "build" "-p" name "-j" jobs]
+]
+build-test: [
+	["dune" "runtest" "-p" name "-j" jobs]
 ]
 depends: [
 	"dune" {build}
-	"ppx_inline_test" {build}
+	"ppx_inline_test" {with-test}
 ]

@@ -5,12 +5,12 @@
  *
  * A module with often needed utility functions for
  * list genertaion and processing
- *)
+*)
 
 (**
  * generates a list of int values with given range
  * (start inclusive, stop exlcusive)
- *)
+*)
 let rec range start stop =
   if start < stop then start :: range (start + 1) stop
   else []
@@ -22,7 +22,7 @@ let%test _ = range 4 2 = []
 
 (**
  * splits the list into a parts at the given position
- *)
+*)
 let split pos l =
   let rec loop a b cur =
     if cur < pos then loop ((List.hd b) :: a) (List.tl b) (cur + 1)
@@ -39,17 +39,17 @@ let take n l =
   loop [] l
 
 let%test_module _ = (module struct
-                      let ll = [1; 2; 3; 4; 5; 6; 7; 8]
+  let ll = [1; 2; 3; 4; 5; 6; 7; 8]
 
-                      let%test _ = split 0 ll = ([], ll)
-                      let%test _ = split 1 ll = ([1], [2; 3; 4; 5; 6; 7; 8])
-                      let%test _ = split 5 ll = ([1; 2; 3; 4; 5], [6; 7; 8])
-                      let%test _ = split 8 ll = (ll, [])
-                      let%test _ = take 0 ll = ([], ll)
-                      let%test _ = take 1 ll = ([1], [2; 3; 4; 5; 6; 7; 8])
-                      let%test _ = take 5 ll = ([1; 2; 3; 4; 5], [6; 7; 8])
-                      let%test _ = take 8 ll = (ll, [])
-                    end)
+  let%test _ = split 0 ll = ([], ll)
+  let%test _ = split 1 ll = ([1], [2; 3; 4; 5; 6; 7; 8])
+  let%test _ = split 5 ll = ([1; 2; 3; 4; 5], [6; 7; 8])
+  let%test _ = split 8 ll = (ll, [])
+  let%test _ = take 0 ll = ([], ll)
+  let%test _ = take 1 ll = ([1], [2; 3; 4; 5; 6; 7; 8])
+  let%test _ = take 5 ll = ([1; 2; 3; 4; 5], [6; 7; 8])
+  let%test _ = take 8 ll = (ll, [])
+end)
 
 (** partition list *)
 let part n l =
@@ -60,19 +60,19 @@ let part n l =
   loop l
 
 let%test_module _ = (module struct
-                      let ll = [1; 2; 3; 4; 5; 6; 7; 8]
+  let ll = [1; 2; 3; 4; 5; 6; 7; 8]
 
-                      (* let%test _ = part 0 ll = [[]; ll] *)
-                      let%test _ = part 1 ll = [[1]; [2]; [3]; [4]; [5]; [6]; [7]; [8]]
-                      let%test _ = part 4 ll = [[1; 2; 3; 4]; [5; 6; 7; 8]]
-                      (* let%test _ = part 8 ll = [ll; []] *)
-                    end)
+  (* let%test _ = part 0 ll = [[]; ll] *)
+  let%test _ = part 1 ll = [[1]; [2]; [3]; [4]; [5]; [6]; [7]; [8]]
+  let%test _ = part 4 ll = [[1; 2; 3; 4]; [5; 6; 7; 8]]
+  (* let%test _ = part 8 ll = [ll; []] *)
+end)
 
 
 (**
  * extracts a sublist of the given indices (inclusive).
  * Returns an empty list, if out of bounds.
- *)
+*)
 let sub_list start stop l =
   let rec loop i ll =
     match ll with
@@ -83,18 +83,18 @@ let sub_list start stop l =
   loop 0 l
 
 let%test_module _ = (module struct
-                      let ll = [1; 2; 3; 4; 5; 6; 7; 8]
+  let ll = [1; 2; 3; 4; 5; 6; 7; 8]
 
-                      let%test _ = sub_list 2 6 ll = [3; 4; 5; 6; 7]
-                      let%test _ = sub_list 0 7 ll = ll
-                      let%test _ = sub_list 5 3 ll = []
-                      let%test _ = sub_list 3 8 ll = [4; 5; 6; 7; 8]
-                    end)
+  let%test _ = sub_list 2 6 ll = [3; 4; 5; 6; 7]
+  let%test _ = sub_list 0 7 ll = ll
+  let%test _ = sub_list 5 3 ll = []
+  let%test _ = sub_list 3 8 ll = [4; 5; 6; 7; 8]
+end)
 
 
 (**
  * takes out the first element equal to a
- *)
+*)
 let take_out_first a l =
   let flag = ref false in
   List.fold_left
@@ -103,18 +103,18 @@ let take_out_first a l =
   List.rev
 
 let%test_module _ = (module struct
-                      let ll = [1; 2; 4; 3; 2; 5; 4; 7; 2]
+  let ll = [1; 2; 4; 3; 2; 5; 4; 7; 2]
 
-                      let%test _ = take_out_first 3 ll = [1; 2; 4; 2; 5; 4; 7; 2]
-                      let%test _ = take_out_first 0 ll = [1; 2; 4; 3; 2; 5; 4; 7; 2]
-                      let%test _ = take_out_first 2 ll = [1; 4; 3; 2; 5; 4; 7; 2]
-                      let%test _ = take_out_first 4 ll = [1; 2; 3; 2; 5; 4; 7; 2]
-                    end)
+  let%test _ = take_out_first 3 ll = [1; 2; 4; 2; 5; 4; 7; 2]
+  let%test _ = take_out_first 0 ll = [1; 2; 4; 3; 2; 5; 4; 7; 2]
+  let%test _ = take_out_first 2 ll = [1; 4; 3; 2; 5; 4; 7; 2]
+  let%test _ = take_out_first 4 ll = [1; 2; 3; 2; 5; 4; 7; 2]
+end)
 
 
 (**
  * random sampling of list entries
- *)
+*)
 let sample_list ?n l =
   let len = match n with
     | None    -> List.length l
@@ -134,10 +134,22 @@ let sample_list ?n l =
 
 
 let%test_module _ = (module struct
-                      let ll = [1; 2; 3; 4; 5; 6; 7; 8]
+  let ll = [1; 2; 3; 4; 5; 6; 7; 8]
 
-                      let%test _ = List.length (sample_list ll) = List.length ll
-                      let%test _ = List.length (sample_list ~n:5 ll) = 5
-                    end)
+  let%test _ = List.length (sample_list ll) = List.length ll
+  let%test _ = List.length (sample_list ~n:5 ll) = 5
+end)
 
+
+(* filter_map *)
+let filter_map l =
+  List.fold_left (fun acc el -> match el with Some x -> x :: acc | None -> acc) [] l
+  |> List.rev
+
+
+let%test_module _ = (module struct
+  let ll = [None; Some 1; None; Some 3; None; Some 5]
+
+  let%test _ = filter_map ll = [1; 3; 5]
+end)
 

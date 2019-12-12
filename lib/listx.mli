@@ -37,3 +37,7 @@ val sample_list : ?n:int -> 'a list -> 'a list
     if not given. *)
 
 
+val filter_map : 'a option list -> 'a list
+(** [filter_map l] filters a list [l] with elements
+    of type ['a option] for non [None] values. *)
+
