@@ -21,7 +21,7 @@ let test_split () =
 (* ---------------------------------------------------------------------- *)
 let test_part () =
   let ll = [1; 2; 3; 4; 5; 6; 7; 8] in
-  (* Alcotest.(check (list (list int)) "part 0 l" [[1]; [2]; [3]; [4]; [5]; [6]; [7]; [8]] (part 0 ll)); *)
+  Alcotest.(check (list (list int)) "part 1 l" [[1]; [2]; [3]; [4]; [5]; [6]; [7]; [8]] (part 1 ll));
   Alcotest.(check (list (list int)) "part 4 l" [[1; 2; 3; 4]; [5; 6; 7; 8]] (part 4 ll))
 (* ---------------------------------------------------------------------- *)
 let test_sub_list () =
