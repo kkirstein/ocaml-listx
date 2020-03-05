@@ -1,6 +1,6 @@
 opam-version: "2.0"
 name: "listx"
-version: "0.1.1"
+version: "0.2.0"
 maintainer: "kay-uwe@kirsteinhome.ch"
 authors: ["Kay-Uwe Kirstein"]
 synopsis: "A module with utility functions for list generation and processing"
@@ -15,5 +15,5 @@ build: [
 ]
 depends: [
 	"dune" {build}
-	"ppx_inline_test" {with-test}
+	"alcotest" {with-test}
 ]
