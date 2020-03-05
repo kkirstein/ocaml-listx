@@ -14,15 +14,22 @@ let test_range () =
 (* ---------------------------------------------------------------------- *)
 let test_split () =
   let ll = [1; 2; 3; 4; 5; 6; 7; 8] in
-  Alcotest.(check (pair (list int) (list int)) "split 0 l" ([], ll) (split 0 ll));
-  Alcotest.(check (pair (list int) (list int)) "split 0 l" ([1], [2; 3; 4; 5; 6; 7; 8]) (split 1 ll));
-  Alcotest.(check (pair (list int) (list int)) "split 0 l" ([1; 2; 3; 4; 5], [6; 7; 8]) (split 5 ll));
-  Alcotest.(check (pair (list int) (list int)) "split 0 l" (ll, []) (split 8 ll))
+  Alcotest.(check (pair (list int) (list int)) "split 0 elements" ([], ll) (split 0 ll));
+  Alcotest.(check (pair (list int) (list int)) "split 1 element" ([1], [2; 3; 4; 5; 6; 7; 8]) (split 1 ll));
+  Alcotest.(check (pair (list int) (list int)) "split some elements" ([1; 2; 3; 4; 5], [6; 7; 8]) (split 5 ll));
+  Alcotest.(check (pair (list int) (list int)) "split too many elements gives whole list" (ll, []) (split 8 ll))
 (* ---------------------------------------------------------------------- *)
 let test_part () =
   let ll = [1; 2; 3; 4; 5; 6; 7; 8] in
-  Alcotest.(check (list (list int)) "part 1 l" [[1]; [2]; [3]; [4]; [5]; [6]; [7]; [8]] (part 1 ll));
-  Alcotest.(check (list (list int)) "part 4 l" [[1; 2; 3; 4]; [5; 6; 7; 8]] (part 4 ll))
+  (* Alcotest.(check (list (list int)) "part 0 gives ampty list" [] (part 0 ll)); *)
+  Alcotest.(check (list (list int)) "part 1 gives single elements (as list)"
+              [[1]; [2]; [3]; [4]; [5]; [6]; [7]; [8]] (part 1 ll));
+  Alcotest.(check (list (list int)) "part 4 gives lists of length 4"
+              [[1; 2; 3; 4]; [5; 6; 7; 8]] (part 4 ll));
+  Alcotest.(check (list (list int)) "part 8 gives lists of length 8 (whole list)"
+              [[1; 2; 3; 4; 5; 6; 7; 8]] (part 8 ll));
+  Alcotest.(check (list (list int)) "part 9 (too many) gives empty list"
+              [[1; 2; 3; 4; 5; 6; 7; 8]] (part 9 ll))
 (* ---------------------------------------------------------------------- *)
 let test_sub_list () =
   let ll = [1; 2; 3; 4; 5; 6; 7; 8] in
@@ -47,7 +54,7 @@ let test_sample_list () =
   Alcotest.(check int "sample_list all elements"
               (List.length ll) (List.length (sample_list ll)));
   Alcotest.(check int "sample_list selected number of elements"
-            5 (List.length (sample_list ~n:5 ll)))
+              5 (List.length (sample_list ~n:5 ll)))
 (* ---------------------------------------------------------------------- *)
 let test_filter_map () =
   let ll = [None; Some 1; None; Some 3; None; Some 5] in
