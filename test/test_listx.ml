@@ -17,11 +17,12 @@ let test_split () =
   Alcotest.(check (pair (list int) (list int)) "split 0 elements" ([], ll) (split 0 ll));
   Alcotest.(check (pair (list int) (list int)) "split 1 element" ([1], [2; 3; 4; 5; 6; 7; 8]) (split 1 ll));
   Alcotest.(check (pair (list int) (list int)) "split some elements" ([1; 2; 3; 4; 5], [6; 7; 8]) (split 5 ll));
-  Alcotest.(check (pair (list int) (list int)) "split too many elements gives whole list" (ll, []) (split 8 ll))
+  Alcotest.(check (pair (list int) (list int)) "split all elements gives whole list" (ll, []) (split 8 ll));
+  Alcotest.(check (pair (list int) (list int)) "split too many elements gives whole list" (ll, []) (split 9 ll))
 (* ---------------------------------------------------------------------- *)
 let test_part () =
   let ll = [1; 2; 3; 4; 5; 6; 7; 8] in
-  (* Alcotest.(check (list (list int)) "part 0 gives ampty list" [] (part 0 ll)); *)
+  Alcotest.(check (list (list int)) "part 0 gives ampty list" [] (part 0 ll));
   Alcotest.(check (list (list int)) "part 1 gives single elements (as list)"
               [[1]; [2]; [3]; [4]; [5]; [6]; [7]; [8]] (part 1 ll));
   Alcotest.(check (list (list int)) "part 4 gives lists of length 4"

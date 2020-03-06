@@ -5,7 +5,7 @@
  *
  * A module with utility functions for
  * list genertaion and processing
- *)
+*)
 
 val range : int -> int -> int list
 (** [range start stop] generattes a list of int values
@@ -13,11 +13,14 @@ val range : int -> int -> int list
 
 
 val split : int ->  'a list -> ('a list) * ('a list)
-(** [split pos l] splits the given list [l] at [pos] *)
+(** [split pos l] splits the given list [l] at [pos] and
+    returns both parts as a pair of lists.
+    If pos is equal or larger than the length of given list,
+    the whole list (together an empty list) is returned. *)
 
 
 val part : int ->  'a list -> 'a list list
-(** [part n l] partitions the given list [l] into [n] parts *)
+(** [part n l] partitions the given list [l] into lists with [n] members. *)
 
 
 val sub_list : int -> int -> 'a list -> 'a list

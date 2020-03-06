@@ -20,8 +20,9 @@ let rec range start stop =
  * splits the list into a parts at the given position
 *)
 let split pos l =
+  let len = List.length l in
   let rec loop a b cur =
-    if cur < pos then loop ((List.hd b) :: a) (List.tl b) (cur + 1)
+    if cur < pos && cur < len then loop ((List.hd b) :: a) (List.tl b) (cur + 1)
     else (List.rev a, b)
   in
   loop [] l 0
