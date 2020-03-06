@@ -40,11 +40,12 @@ let take n l =
 
 (** partition list *)
 let part n l =
-  let rec loop tail =
-    match tail with
-    | []  -> []
-    | ll  -> let (f, t) = split n ll in f :: (loop t) in
-  loop l
+  if n < 1 then [] else
+    let rec loop tail =
+      match tail with
+      | []  -> []
+      | ll  -> let (f, t) = split n ll in f :: (loop t) in
+    loop l
 
 
 (**
