@@ -1,6 +1,5 @@
 (executable
  (name test_runner)
- (public_name test_runner)
  (libraries listx alcotest))
 
 (rule
